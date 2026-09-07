@@ -1,0 +1,30 @@
+{
+  "gate": "logic_test_gate",
+  "checked_at": "2026-09-08T00:08:52+08:00",
+  "checked_by": "zcode-main",
+  "verdict": "PASS",
+  "verdict_enum": "PASS | FAIL | PASS_WITH_LIMITATIONS",
+  "metrics": {
+    "_comment": "实测指标：JUnit 测试套件结果（--rerun-tasks 强制新鲜执行）",
+    "tests_run": 12,
+    "tests_skipped": 0,
+    "failures": 0,
+    "errors": 0
+  },
+  "thresholds": {
+    "_comment": "预写的验收门槛，事后不许挪",
+    "failures": 0,
+    "errors": 0,
+    "min_tests_run": 12
+  },
+  "evidence": [
+    "runs/20260908_0008_pipeline_001/test_results.xml",
+    "runs/20260908_0008_pipeline_001/build_output.log"
+  ],
+  "inputs_verified": {
+    "run_id": "baseline f6191244",
+    "manifest_matches": true
+  },
+  "limitations": [],
+  "notes": "覆盖 DateMath：倒计时/纪念日/每年重复头条天数、2月29日收敛、今天边界、进度钳制、周年循环比例、木棍映射"
+}

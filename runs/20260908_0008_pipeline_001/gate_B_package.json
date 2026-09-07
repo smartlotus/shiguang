@@ -1,0 +1,29 @@
+{
+  "gate": "package_gate",
+  "checked_at": "2026-09-08T00:09:00+08:00",
+  "checked_by": "zcode-main",
+  "verdict": "PASS",
+  "verdict_enum": "PASS | FAIL | PASS_WITH_LIMITATIONS",
+  "metrics": {
+    "_comment": "实测指标：assembleDebug 全量重跑（44 tasks executed）",
+    "exit_code": 0,
+    "apk_exists": true,
+    "apk_bytes": 9762897,
+    "apk_sha256": "d8175d68f3f6c4d3413236aacd86bab3f5e0c25e491d92e27e9744f27c8266c1"
+  },
+  "thresholds": {
+    "_comment": "预写的验收门槛，事后不许挪",
+    "exit_code": 0,
+    "apk_min_bytes": 1000000
+  },
+  "evidence": [
+    "runs/20260908_0008_pipeline_001/build_output.log",
+    "runs/20260908_0008_pipeline_001/apk_sha256.txt"
+  ],
+  "inputs_verified": {
+    "run_id": "baseline f6191244",
+    "manifest_matches": true
+  },
+  "limitations": [],
+  "notes": "与上一轮构建 sha256 完全一致，确认确定性构建；未开启 minify"
+}

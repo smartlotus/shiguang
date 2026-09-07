@@ -1,37 +1,48 @@
 {
   "schema_version": 1,
-  "project": "remember",
-  "updated_at": "",
-  "updated_by": "",
+  "project": "shiguang (remember)",
+  "updated_at": "2026-09-08T00:10:00+08:00",
+  "updated_by": "zcode-main (orchestrator)",
   "paused": false,
   "active_owner": null,
   "owner_note": "active_owner+start_time 标记当前重型任务持有者；重资源任务（GPU训练/评估）全局串行",
   "stages": [
     {
       "id": "A",
-      "name": "<环节名，如 数据采集>",
-      "status": "PENDING",
+      "name": "logic-test 日期核心逻辑单元测试",
+      "status": "PASS",
       "status_enum": "PENDING | RUNNING | PASS | PASS_WITH_LIMITATIONS | FAIL | BLOCKED | dirty",
-      "run_id": null,
-      "run_dir": null,
-      "gate_report": null,
-      "attempts": 0,
+      "run_id": "20260908_0008_pipeline_001",
+      "run_dir": "runs/20260908_0008_pipeline_001/",
+      "gate_report": "runs/20260908_0008_pipeline_001/gate_A_logic_test.json",
+      "attempts": 1,
       "last_error": null,
       "depends_on": []
     },
     {
       "id": "B",
-      "name": "<环节名>",
-      "status": "PENDING",
-      "run_id": null,
-      "run_dir": null,
-      "gate_report": null,
-      "attempts": 0,
+      "name": "package assembleDebug 打包 APK",
+      "status": "PASS",
+      "status_enum": "PENDING | RUNNING | PASS | PASS_WITH_LIMITATIONS | FAIL | BLOCKED | dirty",
+      "run_id": "20260908_0008_pipeline_001",
+      "run_dir": "runs/20260908_0008_pipeline_001/",
+      "gate_report": "runs/20260908_0008_pipeline_001/gate_B_package.json",
+      "attempts": 1,
       "last_error": null,
-      "depends_on": [
-        "A"
-      ]
+      "depends_on": ["A"]
+    },
+    {
+      "id": "C",
+      "name": "acceptance aapt 清单与小组件验收",
+      "status": "PASS",
+      "status_enum": "PENDING | RUNNING | PASS | PASS_WITH_LIMITATIONS | FAIL | BLOCKED | dirty",
+      "run_id": "20260908_0008_pipeline_001",
+      "run_dir": "runs/20260908_0008_pipeline_001/",
+      "gate_report": "runs/20260908_0008_pipeline_001/gate_C_acceptance.json",
+      "attempts": 1,
+      "last_error": null,
+      "depends_on": ["B"]
     }
   ],
-  "notes": "写权限：仅编排器（读-改-写，原子替换）。其他进程/Agent 只读。"
+  "notes": "写权限：仅编排器（读-改-写，原子替换）。其他进程/Agent 只读。全链绿色 @ commit f6191244；真机运行时验收为移交事项（见 .agents/handoffs/2026-09-08-首版交付.md）"
 }

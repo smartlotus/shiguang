@@ -1,0 +1,34 @@
+{
+  "gate": "acceptance_gate",
+  "checked_at": "2026-09-08T00:09:10+08:00",
+  "checked_by": "zcode-main",
+  "verdict": "PASS",
+  "verdict_enum": "PASS | FAIL | PASS_WITH_LIMITATIONS",
+  "metrics": {
+    "_comment": "实测指标：aapt 对最终 APK 的清单与 badging 验收",
+    "provides_component_app_widget": 1,
+    "widget_receivers_with_update_intent": 2,
+    "configure_activity_hits": 1,
+    "launchable_activity": "com.shiguang.app.MainActivity",
+    "application_label": "拾光",
+    "package_name": "com.shiguang.app"
+  },
+  "thresholds": {
+    "_comment": "预写的验收门槛，事后不许挪",
+    "provides_component_app_widget": 1,
+    "widget_receivers_with_update_intent": 2,
+    "configure_activity_hits": 1
+  },
+  "evidence": [
+    "runs/20260908_0008_pipeline_001/aapt_badging.txt",
+    "runs/20260908_0008_pipeline_001/manifest_tree.txt"
+  ],
+  "inputs_verified": {
+    "run_id": "baseline f6191244",
+    "manifest_matches": true
+  },
+  "limitations": [
+    "静态验收仅证明清单与组件注册正确；小组件在真机桌面的绑定、动画流畅度等运行时表现待设备验收（真机 handoff 移交）"
+  ],
+  "notes": "PASS（无保留项门槛全部满足）；真机运行时验收列为移交事项而非本票保留项"
+}

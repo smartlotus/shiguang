@@ -1,0 +1,46 @@
+{
+  "run_id": "20260908_0008_pipeline_001",
+  "stage": "A→B→C 全链（单测→打包→清单验收）",
+  "created_at": "2026-09-08T00:08:00+08:00",
+  "created_by": "zcode-main",
+  "status": "PASS",
+  "code_version": {
+    "git_commit": "f6191244ad1cdc4859a2381b077edce011650d50",
+    "dirty_files": []
+  },
+  "inputs": {
+    "baseline": {
+      "run_id": null,
+      "path": "app/src/",
+      "sha256": "见 apk_sha256.txt（产物级指纹，确定性构建复现一致）"
+    }
+  },
+  "params": {
+    "_comment": "本次运行的全部关键参数，resume 时用于指纹比对",
+    "gradle": "8.11.1",
+    "agp": "8.7.3",
+    "kotlin": "2.0.21",
+    "ksp": "2.0.21-1.0.28",
+    "compileSdk": 35,
+    "minSdk": 26,
+    "targetSdk": 35,
+    "rerun_tasks": true,
+    "budget_tier": "nano==long：全链构建本身 <1min，纳米预演与正式预算为同一条链"
+  },
+  "semantic_counters": {
+    "_comment": "所有影响续跑语义的计数器快照",
+    "attempts": 1
+  },
+  "env": {
+    "java": "OpenJDK 17.0.20 (Temurin)",
+    "android_build_tools": "35.0.0",
+    "os": "Windows 10.0.26200 x64",
+    "gradle_daemon": false
+  },
+  "gate_report": [
+    "gate_A_logic_test.json",
+    "gate_B_package.json",
+    "gate_C_acceptance.json"
+  ],
+  "verdict": "PASS"
+}

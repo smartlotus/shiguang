@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.shiguang.app.logic.DateMathTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2026-09-07T16:08:52" hostname="OMEN-LOTUS" time="0.007">
+  <properties/>
+  <testcase name="progress_anniversary_caps_at_365" classname="com.shiguang.app.logic.DateMathTest" time="0.002"/>
+  <testcase name="countdown_future_days" classname="com.shiguang.app.logic.DateMathTest" time="0.0"/>
+  <testcase name="stick_count_mapping" classname="com.shiguang.app.logic.DateMathTest" time="0.003"/>
+  <testcase name="progress_anniversary_fills_first_365" classname="com.shiguang.app.logic.DateMathTest" time="0.0"/>
+  <testcase name="countdown_today_is_zero" classname="com.shiguang.app.logic.DateMathTest" time="0.0"/>
+  <testcase name="progress_countdown_clamps_when_today_before_start" classname="com.shiguang.app.logic.DateMathTest" time="0.0"/>
+  <testcase name="repeat_next_anniversary" classname="com.shiguang.app.logic.DateMathTest" time="0.0"/>
+  <testcase name="progress_countdown_shrinks" classname="com.shiguang.app.logic.DateMathTest" time="0.0"/>
+  <testcase name="repeat_today_is_anniversary" classname="com.shiguang.app.logic.DateMathTest" time="0.0"/>
+  <testcase name="anniversary_elapsed_days" classname="com.shiguang.app.logic.DateMathTest" time="0.0"/>
+  <testcase name="progress_repeat_uses_yearly_cycle" classname="com.shiguang.app.logic.DateMathTest" time="0.0"/>
+  <testcase name="repeat_feb29_collapses_to_feb28" classname="com.shiguang.app.logic.DateMathTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
