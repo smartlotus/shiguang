@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">拾光</string>
+    <string name="widget_small_label">拾光 · 单日</string>
+    <string name="widget_medium_label">拾光 · 进度</string>
+    <string name="widget_small_desc">单个日子的倒计时或纪念日</string>
+    <string name="widget_medium_desc">带进度条的倒计时或纪念日</string>
+</resources>

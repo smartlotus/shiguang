@@ -1,0 +1,19 @@
+*.iml
+.gradle/
+/local.properties
+.idea/
+.DS_Store
+build/
+captures/
+.externalNativeBuild
+.cxx
+
+# ===== pipeline-ops 推荐项（.gitignore.recommended 已并入本文件并删除）=====
+__pycache__/
+*.py[cod]
+.pytest_cache/
+Thumbs.db
+Desktop.ini
+/data/
+/models/
+/datasets/
