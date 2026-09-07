@@ -1,0 +1,34 @@
+{
+  "gate": "acceptance_gate",
+  "checked_at": "2026-09-08T00:15:20+08:00",
+  "checked_by": "zcode-main",
+  "verdict": "PASS",
+  "verdict_enum": "PASS | FAIL | PASS_WITH_LIMITATIONS",
+  "metrics": {
+    "_comment": "实测指标：apksigner 签名验证 + aapt 对 release APK 的清单与 badging 验收",
+    "apksigner_verify_exit": 0,
+    "signer_cert_sha256": "5a8a2a031876e8b5d5fc75360124684f7c95a9cb6c1265d67962a41179fdd3b1",
+    "signer_cert_dn": "CN=ShiGuang Release, OU=SmartLotus, O=SmartLotus, L=Beijing, ST=Beijing, C=CN",
+    "provides_component_app_widget": 1,
+    "application_label": "拾光",
+    "application_id": "com.shiguang.app",
+    "native_abis": ["arm64-v8a", "armeabi-v7a", "x86", "x86_64"]
+  },
+  "thresholds": {
+    "_comment": "预写的验收门槛，事后不许挪",
+    "apksigner_verify_exit": 0,
+    "provides_component_app_widget": 1
+  },
+  "evidence": [
+    "runs/20260908_0013_release_001/apksigner_verify.txt",
+    "runs/20260908_0013_release_001/aapt_badging_release.txt"
+  ],
+  "inputs_verified": {
+    "run_id": "HEAD 2cd013f + dirty(app/build.gradle.kts, .gitignore)",
+    "manifest_matches": true
+  },
+  "limitations": [
+    "静态验收：签名与清单均正确；真机安装/运行验收仍为移交事项（需设备）"
+  ],
+  "notes": "release APK 为完整可安装版本（v1 方案签名由 apksigner 校验通过）"
+}

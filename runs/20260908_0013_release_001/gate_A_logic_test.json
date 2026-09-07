@@ -1,0 +1,30 @@
+{
+  "gate": "logic_test_gate",
+  "checked_at": "2026-09-08T00:14:17+08:00",
+  "checked_by": "zcode-main",
+  "verdict": "PASS",
+  "verdict_enum": "PASS | FAIL | PASS_WITH_LIMITATIONS",
+  "metrics": {
+    "_comment": "实测指标：JUnit 测试套件结果（--rerun-tasks 强制新鲜执行）",
+    "tests_run": 12,
+    "tests_skipped": 0,
+    "failures": 0,
+    "errors": 0
+  },
+  "thresholds": {
+    "_comment": "预写的验收门槛，事后不许挪",
+    "failures": 0,
+    "errors": 0,
+    "min_tests_run": 12
+  },
+  "evidence": [
+    "runs/20260908_0013_release_001/test_results.xml",
+    "runs/20260908_0013_release_001/build_output.log"
+  ],
+  "inputs_verified": {
+    "run_id": "HEAD 2cd013f + dirty(app/build.gradle.kts, .gitignore)",
+    "manifest_matches": true
+  },
+  "limitations": [],
+  "notes": "签名配置变更不影响 DateMath 纯 JVM 逻辑，但按协议全量重跑"
+}

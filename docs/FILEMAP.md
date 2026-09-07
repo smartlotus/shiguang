@@ -13,6 +13,7 @@
 | `.gitignore` | git 排除规则：构建产物、IDE 配置、本地 SDK 路径等不入库 |
 | `pipeline_state.json` | **权威状态（唯一事实源）**：流水线各环节 status/run_id/验收票路径；仅编排器可写 |
 | `local.properties` | 本机 Android SDK 路径（**不入库**，每台机器各自生成） |
+| `keystore.properties`、`keystores/shiguang-release.jks` | release 签名凭据与自签密钥库（**不入库**；缺失时 release 回退为未签名包） |
 | `gradle.properties` | Gradle 全局参数：JVM 内存、AndroidX 开关、并行构建 |
 | `settings.gradle.kts` | Gradle 设置：插件仓库（google/mavenCentral）、模块包含、项目名 ShiGuang |
 | `build.gradle.kts` | 根构建脚本：声明 AGP 8.7.3 / Kotlin 2.0.21 / Compose 插件 / KSP 版本 |

@@ -17,3 +17,9 @@ Desktop.ini
 /data/
 /models/
 /datasets/
+
+# ===== 签名密钥与凭据（本地自签，绝不入库）=====
+keystore.properties
+keystores/
+*.jks
+*.keystore
