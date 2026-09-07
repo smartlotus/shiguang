@@ -4,8 +4,11 @@ package com.shiguang.app.ui
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -84,7 +87,10 @@ fun DetailScreen(
             AnimatedContent(
                 targetState = event.styleIndex,
                 label = "style",
-                transitionSpec = { fadeIn(androidx.compose.animation.core.tween(350)) togetherWith fadeOut(androidx.compose.animation.core.tween(350)) },
+                transitionSpec = {
+                    (fadeIn(tween(300)) + scaleIn(initialScale = 0.96f, animationSpec = tween(300))) togetherWith
+                        (fadeOut(tween(220)) + scaleOut(targetScale = 0.98f, animationSpec = tween(220)))
+                },
             ) { styleIndex ->
                 when (styleIndex) {
                     1 -> DominoStyle(event, Modifier.fillMaxWidth())

@@ -2,6 +2,11 @@ package com.shiguang.app.ui.styles
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.CubicBezierEasing
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Column
@@ -13,6 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,6 +53,16 @@ fun DominoStyle(event: EventUi, modifier: Modifier = Modifier) {
             tween(durationMillis = 2400, easing = CubicBezierEasing(0.25f, 0.1f, 0.25f, 1f))
         )
     }
+    // 下一根即将倒下的木棍：轻微摇摆蓄力
+    val swayAngle by rememberInfiniteTransition(label = "sway").animateFloat(
+        initialValue = -2.6f,
+        targetValue = 2.6f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 850, easing = FastOutSlowInEasing),
+            repeatMode = RepeatMode.Reverse,
+        ),
+        label = "swayAngle",
+    )
 
     Column(modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
         Canvas(
@@ -71,10 +87,17 @@ fun DominoStyle(event: EventUi, modifier: Modifier = Modifier) {
                 cap = StrokeCap.Round,
             )
 
+            val nextToFall = (elapsedFraction * n).toInt().coerceAtMost(n - 1)
+
             for (i in 0 until n) {
                 val fallen = (reveal.value * elapsedFraction * n - i).coerceIn(0f, 1f)
                 val cx = firstX + i * gap
-                rotate(degrees = fallen * 76f, pivot = Offset(cx, baseY)) {
+                val sway = if (reveal.value >= 1f && elapsedFraction < 1f && i == nextToFall && fallen <= 0f) {
+                    swayAngle
+                } else {
+                    0f
+                }
+                rotate(degrees = fallen * 76f + sway, pivot = Offset(cx, baseY)) {
                     drawRoundRect(
                         color = if (fallen > 0f) accent else accent.copy(alpha = 0.22f),
                         topLeft = Offset(cx - stickW / 2f, baseY - stickLen),

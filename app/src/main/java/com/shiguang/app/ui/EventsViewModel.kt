@@ -18,9 +18,11 @@ class EventsViewModel(app: Application) : AndroidViewModel(app) {
 
     private val dao = AppDatabase.get(app).eventDao()
 
-    val events: StateFlow<List<EventUi>> = dao.observeAll()
+    /** null = 数据库还在加载（避免空状态闪现）；非 null = 当前事件列表 */
+    val events: StateFlow<List<EventUi>?> = dao.observeAll()
         .map { list -> list.map { EventUi.from(it, LocalDate.now()) } }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+        .map<List<EventUi>, List<EventUi>?> { it }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     fun save(
         id: Long?,

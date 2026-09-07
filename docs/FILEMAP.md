@@ -35,7 +35,7 @@
 
 | 文件 | 功能 |
 |---|---|
-| `MainActivity.kt` | 唯一 Activity 入口：enableEdgeToEdge、预约午夜刷新、托管 `ShiGuangApp()`；内含 `Screen` 密封类（主页/详情/编辑）与返回键处理，实现轻量导航 |
+| `MainActivity.kt` | 唯一 Activity 入口：enableEdgeToEdge、预约午夜刷新、托管 `ShiGuangApp()`；`Screen` 密封类 + **AnimatedContent 导航转场**（按页面层级左右滑动+淡入淡出）、**小组件深链**（singleTop + onNewIntent 接收 `EXTRA_OPEN_EVENT_ID` 直达详情）、返回键处理 |
 
 ### 数据层 `data/`
 
@@ -56,11 +56,11 @@
 
 | 文件 | 功能 |
 |---|---|
-| `ui/EventsViewModel.kt` | MVVM ViewModel：把 Room Flow 映射为 `EventUi` StateFlow；save/setStyle/delete 后触发小组件全量刷新 |
+| `ui/EventsViewModel.kt` | MVVM ViewModel：Room Flow → `EventUi` 的 StateFlow（**null=加载中**，避免空状态闪现）；save/setStyle/delete 后触发小组件全量刷新 |
 | `ui/Formats.kt` | 日期格式化工具：中文全日期（含星期）、紧凑日期（2026.10.1）、LocalDate↔DatePicker UTC 毫秒互转 |
-| `ui/HomeScreen.kt` | 首页：标题区（拾光 + 今日日期）、事件列表（LazyColumn）、空状态、ExtendedFAB「记一个日子」 |
+| `ui/HomeScreen.kt` | 首页：标题区（拾光 + 今日日期）、**加载中小圆点**、事件列表（LazyColumn + **animateItem 删除/重排动画**）、空状态（**多米诺品牌插画 DominoMark**）、ExtendedFAB「记一个日子」 |
 | `ui/EventCard.kt` | 列表卡片：色点 + 标题 + 混排大数字（还/已 N 天）+ 日期/备注 + 迷你进度条 |
-| `ui/DetailScreen.kt` | 详情页：整页按事件色淡染，顶部返回/编辑，中部 `AnimatedContent` 渲染当前样式，底部 SegmentedButton 切换四种样式（写入数据库记忆） |
+| `ui/DetailScreen.kt` | 详情页：整页按事件色淡染（animateColorAsState），顶部返回/编辑，中部 `AnimatedContent` 渲染当前样式（**淡入+缩放转场**），底部 SegmentedButton 切换四种样式（写入数据库记忆） |
 | `ui/EditScreen.kt` | 新建/编辑页：标题、Material3 DatePicker 选目标日与进度起点、每年重复开关、8 色色板选择、备注、删除（带确认对话框） |
 
 ### 主题 `ui/theme/`
@@ -76,16 +76,16 @@
 | 文件 | 功能 |
 |---|---|
 | `ui/styles/Common.kt` | 共享件：`accent` 色扩展属性、`dateLine()` 文案、`Headline()`（前缀 + 衬线大数字 + 日期）供多种样式复用 |
-| `ui/styles/ClassicStyle.kt` | 经典样式：一枚 88sp 衬线大数字 |
-| `ui/styles/DominoStyle.kt` | **多米诺样式**：Canvas 绘制木棍队列，时间流逝逐根倒下（76° 旋转），进场时 Animatable 重放倒下过程；地面线 + “已倒下 X/Y 根”文案 |
-| `ui/styles/BarStyle.kt` | **长条样式**：倒计时从满长收缩到当前剩余比例（由长慢慢变短），纪念日反向填满；两端标注起止日期 |
+| `ui/styles/ClassicStyle.kt` | 经典样式：一枚 88sp 衬线大数字，**入场缩放浮现** |
+| `ui/styles/DominoStyle.kt` | **多米诺样式**：Canvas 木棍队列，时间流逝逐根倒下（76° 旋转），进场 Animatable 重放倒下过程，**下一根待倒木棍轻微摇摆蓄力**（无限过渡）；地面线 + “已倒下 X/Y 根”文案 |
+| `ui/styles/BarStyle.kt` | **长条样式**：倒计时从满长收缩到当前剩余比例（由长慢慢变短），纪念日反向填满；**进度条流光扫过**（线性渐变无限平移）；两端标注起止日期 |
 | `ui/styles/RingStyle.kt` | 圆环样式：Canvas 双弧（底环 + 进度弧，圆头端帽），环心大数字，进场扫描动画 |
 
 ### 桌面小组件 `widget/`
 
 | 文件 | 功能 |
 |---|---|
-| `widget/WidgetUpdater.kt` | 小组件统一渲染器：读取「appWidgetId → 事件」绑定，生成 RemoteViews（标题/天数/日期/底色/进度条），含未绑定占位视图；负责设置午夜 AlarmManager |
+| `widget/WidgetUpdater.kt` | 小组件统一渲染器：读取「appWidgetId → 事件」绑定，生成 RemoteViews（标题/天数/日期/底色/进度条/**百分比**）；**深链 PendingIntent（点击直达该日子详情）**、“就是今天”特殊显示、未绑定占位视图；设置午夜 AlarmManager |
 | `widget/CountdownWidgets.kt` | 两个 AppWidgetProvider（2×2 与 4×2）：onUpdate 时预约午夜 + 全量刷新；onDeleted 清理绑定；抽象基类共享逻辑 |
 | `widget/MidnightReceiver.kt` | 零点闹钟广播接收器：刷新全部小组件并预约下一个午夜，保证“还 N 天”当天翻准 |
 | `widget/WidgetConfigureActivity.kt` | 添加小组件时的配置页：Compose 列出全部事件供选择，写绑定 → 立即渲染 → 返回 RESULT_OK；空列表时引导打开应用 |
@@ -101,7 +101,7 @@
 | 文件 | 功能 |
 |---|---|
 | `layout/widget_small.xml` | 2×2 小组件布局：标题 + 前缀/大数字/天 + 日期（id：w_root/w_title/w_prefix/w_days/w_date） |
-| `layout/widget_medium.xml` | 4×2 布局：在 2×2 基础上标题与日期同行，底部加水平 ProgressBar（id：w_progress） |
+| `layout/widget_medium.xml` | 4×2 布局：标题与日期同行、大数字、**进度条 + w_percent 百分比文字**（水平排列） |
 | `drawable/widget_bg_0..7.xml`（8 个） | 小组件圆角背景，对应 8 色色板 |
 | `drawable/widget_progress.xml` | 组件进度条 layer-list：半透明轨道 + 深墨 clip 进度 |
 | `drawable/ic_launcher_foreground.xml` | 自适应图标前景：三根依次倾倒的时间木棍 + 小太阳（矢量，呼应多米诺样式） |

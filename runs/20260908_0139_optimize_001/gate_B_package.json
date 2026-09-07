@@ -1,0 +1,35 @@
+{
+  "gate": "package_gate",
+  "checked_at": "2026-09-08T01:40:40+08:00",
+  "checked_by": "zcode-main",
+  "verdict": "PASS",
+  "verdict_enum": "PASS | FAIL | PASS_WITH_LIMITATIONS",
+  "metrics": {
+    "_comment": "实测指标：assembleDebug + assembleRelease 全量重跑（94 tasks executed）",
+    "exit_code": 0,
+    "debug_apk_exists": true,
+    "debug_apk_sha256": "e1e95154a323b85c99a0f028f7d2152eb1ed2519a3082363c65761e62cefebb3",
+    "release_apk_exists": true,
+    "release_apk_bytes": 6681394,
+    "release_apk_sha256": "05a1fa2b3311b00956427a97c86a56180177f8449b7020b75eb840e1c62be974",
+    "release_signed": true,
+    "versionCode": 2,
+    "versionName": "1.1"
+  },
+  "thresholds": {
+    "_comment": "预写的验收门槛，事后不许挪",
+    "exit_code": 0,
+    "release_apk_min_bytes": 1000000,
+    "release_signed": true
+  },
+  "evidence": [
+    "runs/20260908_0139_optimize_001/build_output.log",
+    "runs/20260908_0139_optimize_001/apk_sha256.txt"
+  ],
+  "inputs_verified": {
+    "run_id": "HEAD 2cd013f + 未提交优化改动（dirty_files.txt）",
+    "manifest_matches": true
+  },
+  "limitations": [],
+  "notes": "attempt-1 编译失败已按语义计数器记录；attempt-2 全绿"
+}

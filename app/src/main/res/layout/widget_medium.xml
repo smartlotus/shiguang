@@ -79,14 +79,31 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <ProgressBar
-            android:id="@+id/w_progress"
-            style="?android:attr/progressBarStyleHorizontal"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="6dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:max="100"
-            android:progress="0"
-            android:progressDrawable="@drawable/widget_progress" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:id="@+id/w_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="6dp"
+                android:layout_weight="1"
+                android:max="100"
+                android:progress="0"
+                android:progressDrawable="@drawable/widget_progress" />
+
+            <TextView
+                android:id="@+id/w_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="0%"
+                android:textColor="#802A2A32"
+                android:textSize="10sp" />
+        </LinearLayout>
     </LinearLayout>
 </FrameLayout>

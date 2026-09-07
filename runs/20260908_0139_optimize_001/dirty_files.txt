@@ -1,0 +1,12 @@
+ M app/build.gradle.kts
+ M app/src/main/AndroidManifest.xml
+ M app/src/main/java/com/shiguang/app/MainActivity.kt
+ M app/src/main/java/com/shiguang/app/ui/DetailScreen.kt
+ M app/src/main/java/com/shiguang/app/ui/EventsViewModel.kt
+ M app/src/main/java/com/shiguang/app/ui/HomeScreen.kt
+ M app/src/main/java/com/shiguang/app/ui/styles/BarStyle.kt
+ M app/src/main/java/com/shiguang/app/ui/styles/ClassicStyle.kt
+ M app/src/main/java/com/shiguang/app/ui/styles/DominoStyle.kt
+ M app/src/main/java/com/shiguang/app/widget/WidgetUpdater.kt
+ M app/src/main/res/layout/widget_medium.xml
+?? .agents/claims/ui-motion-optimize.md

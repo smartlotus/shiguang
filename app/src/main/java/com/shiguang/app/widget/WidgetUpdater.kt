@@ -6,6 +6,7 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.View
 import android.widget.RemoteViews
 import com.shiguang.app.MainActivity
@@ -40,11 +41,21 @@ object WidgetUpdater {
         R.drawable.widget_bg_7,
     )
 
-    private fun openAppPendingIntent(context: Context): PendingIntent = PendingIntent.getActivity(
-        context, 0,
-        Intent(context, MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
-        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
-    )
+    /** 打开应用并直达对应日子详情（深链）；eventId 为 null 时仅打开主页 */
+    private fun openAppPendingIntent(context: Context, eventId: Long?): PendingIntent {
+        val intent = Intent(context, MainActivity::class.java)
+            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        if (eventId != null) {
+            intent.putExtra(MainActivity.EXTRA_OPEN_EVENT_ID, eventId)
+            intent.data = Uri.parse("shiguang://event/$eventId") // 让不同事件的 PendingIntent 互不覆盖
+        }
+        return PendingIntent.getActivity(
+            context,
+            eventId?.toInt() ?: 0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+        )
+    }
 
     /** 刷新全部已添加的小组件 */
     suspend fun updateAll(context: Context) {
@@ -74,7 +85,7 @@ object WidgetUpdater {
     fun buildViews(context: Context, entity: EventEntity?, medium: Boolean): RemoteViews {
         val layout = if (medium) R.layout.widget_medium else R.layout.widget_small
         val views = RemoteViews(context.packageName, layout)
-        views.setOnClickPendingIntent(R.id.w_root, openAppPendingIntent(context))
+        views.setOnClickPendingIntent(R.id.w_root, openAppPendingIntent(context, entity?.id))
 
         if (entity == null) {
             views.setInt(R.id.w_root, "setBackgroundResource", R.drawable.widget_bg_0)
@@ -89,9 +100,10 @@ object WidgetUpdater {
         val today = LocalDate.now()
         val target = LocalDate.ofEpochDay(entity.targetEpochDay)
         val repeat = entity.repeatYearly
+        val isToday = DateMath.isToday(target, today, repeat)
         val headline = DateMath.headlineDays(target, today, repeat)
         val prefix = when {
-            DateMath.isToday(target, today, repeat) -> "今天"
+            isToday -> "今天"
             repeat || !target.isBefore(today) -> "还有"
             else -> "已经"
         }
@@ -100,16 +112,27 @@ object WidgetUpdater {
         val progress = DateMath.progress(target, today, startDate, repeat)
         val fraction = (if (progress.phase == DateMath.Phase.COUNTDOWN) progress.remaining else progress.fraction)
             .coerceIn(0f, 1f)
+        val percentText = if (progress.phase == DateMath.Phase.COUNTDOWN) {
+            "剩余 ${(progress.remaining * 100).roundToInt()}%"
+        } else {
+            "已过 ${(progress.fraction * 100).roundToInt()}%"
+        }
+        val dateText = Formats.short(target) + when {
+            isToday -> " · 就是今天"
+            repeat -> " · 每年"
+            else -> ""
+        }
 
         views.apply {
             setInt(R.id.w_root, "setBackgroundResource", BG_DRAWABLES[entity.colorIndex.coerceIn(0, 7)])
             setTextViewText(R.id.w_title, entity.title)
             setTextViewText(R.id.w_prefix, prefix)
             setTextViewText(R.id.w_days, headline.toString())
-            setTextViewText(R.id.w_date, Formats.short(target) + if (repeat) " · 每年" else "")
+            setTextViewText(R.id.w_date, dateText)
             if (medium) {
                 setViewVisibility(R.id.w_progress, View.VISIBLE)
                 setProgressBar(R.id.w_progress, 100, (fraction * 100).roundToInt(), false)
+                setTextViewText(R.id.w_percent, percentText)
             }
         }
         return views

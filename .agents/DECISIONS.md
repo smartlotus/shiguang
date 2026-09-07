@@ -10,3 +10,6 @@
 2026-09-08 | 仓库结构对齐 pipeline-ops | 用户明确要求"自动 Agent 架构"；三环流水线 A 单测→B 打包→C 清单验收，gate 全部可机器判定 | pipeline_state.json
 2026-09-08 | release 签名采用本地自签密钥（keystores/shiguang-release.jks，10000 天） | 用户要求全自动产出完整版 APK；自签零成本且可安装；凭据文件 keystore.properties 与密钥不入库（.gitignore），换机需重新生成或线下同步 | runs/20260908_0013_release_001/gate_C_acceptance.json
 2026-09-08 | release 不开启 minify | 未做混淆回归真机验证，保安装稳定性优先；后续可开启并补 keep 规则 | runs/20260908_0013_release_001/gate_B_package.json
+2026-09-08 | v1.1 动效方案：导航按页面层级左右滑动、列表 animateItem、经典入场缩放、多米诺下一根摇摆、长条流光、样式切换淡入缩放 | 用户要求针对动效/UI/小组件优化；全部使用标准 Compose API，无第三方动画库，预算可控 | runs/20260908_0139_optimize_001/manifest.json
+2026-09-08 | 小组件深链用 singleTop + EXTRA_OPEN_EVENT_ID + Intent data 区分 PendingIntent | 点击组件直达详情是小组件体验最大提升；data uri 保证不同事件 PendingIntent 互不覆盖 | widget/WidgetUpdater.kt openAppPendingIntent
+2026-09-08 | VM events 用 null 表示加载中 | 修复启动时空状态闪现（Room 首次发射前误显"还没有记录"） | ui/EventsViewModel.kt

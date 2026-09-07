@@ -1,0 +1,36 @@
+{
+  "gate": "acceptance_gate",
+  "checked_at": "2026-09-08T01:40:50+08:00",
+  "checked_by": "zcode-main",
+  "verdict": "PASS",
+  "verdict_enum": "PASS | FAIL | PASS_WITH_LIMITATIONS",
+  "metrics": {
+    "_comment": "实测指标：apksigner 签名验证 + aapt 对 v1.1 release APK 的清单与 badging 验收",
+    "apksigner_verify_exit": 0,
+    "signer_cert_sha256": "5a8a2a031876e8b5d5fc75360124684f7c95a9cb6c1265d67962a41179fdd3b1（与 v1.0 同钥，可覆盖安装升级）",
+    "provides_component_app_widget": 1,
+    "launch_mode_single_top": 1,
+    "application_label": "拾光",
+    "package_name": "com.shiguang.app",
+    "versionCode": 2,
+    "versionName": "1.1"
+  },
+  "thresholds": {
+    "_comment": "预写的验收门槛，事后不许挪",
+    "apksigner_verify_exit": 0,
+    "provides_component_app_widget": 1,
+    "launch_mode_single_top": 1
+  },
+  "evidence": [
+    "runs/20260908_0139_optimize_001/apksigner_verify.txt",
+    "runs/20260908_0139_optimize_001/aapt_badging_release.txt"
+  ],
+  "inputs_verified": {
+    "run_id": "HEAD 2cd013f + 未提交优化改动（dirty_files.txt）",
+    "manifest_matches": true
+  },
+  "limitations": [
+    "动效与深链的实际手感为运行时行为，需真机体验验收（静态验收覆盖编译/签名/清单/组件注册）"
+  ],
+  "notes": "v1.1 与 v1.0 同签名密钥，直接覆盖安装即可升级"
+}

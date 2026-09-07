@@ -1,0 +1,57 @@
+{
+  "run_id": "20260908_0139_optimize_001",
+  "stage": "A→B→C 全链（单测→打包 debug+release→清单/组件/签名验收）· v1.1 动效/UI/小组件优化",
+  "created_at": "2026-09-08T01:39:00+08:00",
+  "created_by": "zcode-main",
+  "status": "PASS",
+  "code_version": {
+    "git_commit": "2cd013f15a7c3c2efc0ef6e69f48295b19e16f1c（HEAD at start）+ 未提交优化改动，见 dirty_files.txt",
+    "dirty_files": [".gitignore", "AndroidManifest.xml", "MainActivity.kt", "EventsViewModel.kt", "HomeScreen.kt", "DetailScreen.kt", "ClassicStyle.kt", "DominoStyle.kt", "BarStyle.kt", "WidgetUpdater.kt", "widget_medium.xml", "app/build.gradle.kts", ".agents/claims/ui-motion-optimize.md"]
+  },
+  "inputs": {
+    "signing": {
+      "run_id": "20260908_0013_release_001（沿用同一自签密钥，证书 SHA-256 5a8a2a03…）",
+      "path": "keystore.properties + keystores/shiguang-release.jks",
+      "sha256": null
+    }
+  },
+  "params": {
+    "_comment": "本次运行的全部关键参数，resume 时用于指纹比对",
+    "versionCode": 2,
+    "versionName": "1.1",
+    "gradle": "8.11.1",
+    "agp": "8.7.3",
+    "kotlin": "2.0.21",
+    "rerun_tasks": true,
+    "changes": [
+      "导航转场 AnimatedContent（按 depth 左右滑动+淡入淡出）",
+      "列表 animateItem（删除/重排平滑）",
+      "加载态（VM null → 小圆点，防空态闪现）",
+      "空态多米诺品牌插画",
+      "经典样式入场缩放",
+      "多米诺下一根木棍待倒摇摆",
+      "长条进度条流光",
+      "详情样式切换淡入+缩放",
+      "小组件深链直达详情（singleTop + EXTRA_OPEN_EVENT_ID）",
+      "小组件今天态（前缀+日期后缀）",
+      "4x2 组件百分比文字 w_percent",
+      "versionCode 2 / versionName 1.1"
+    ]
+  },
+  "semantic_counters": {
+    "attempts": 2,
+    "attempt_note": "attempt-1 编译失败（4 处：位置参数绑定/onNewIntent 签名/State 只读/Flow.map 泛型），修复后 attempt-2 通过"
+  },
+  "env": {
+    "java": "OpenJDK 17.0.20 (Temurin)",
+    "android_build_tools": "35.0.0",
+    "os": "Windows 10.0.26200 x64",
+    "gradle_daemon": false
+  },
+  "gate_report": [
+    "gate_A_logic_test.json",
+    "gate_B_package.json",
+    "gate_C_acceptance.json"
+  ],
+  "verdict": "PASS"
+}

@@ -2,6 +2,10 @@ package com.shiguang.app.ui.styles
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -18,9 +22,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.CornerRadius
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shiguang.app.logic.DateMath
@@ -42,6 +51,14 @@ fun BarStyle(event: EventUi, modifier: Modifier = Modifier) {
         width.snapTo(1f)
         width.animateTo(target, tween(durationMillis = 1800, easing = FastOutSlowInEasing))
     }
+
+    // 长条上的流光：缓慢扫过，暗示时间在流动
+    val shine by rememberInfiniteTransition(label = "shine").animateFloat(
+        initialValue = 0f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(tween(durationMillis = 1900, easing = LinearEasing)),
+        label = "shine",
+    )
 
     val today = LocalDate.now()
     val next = if (event.repeatYearly) DateMath.nextOccurrence(event.target, today, true) else event.target
@@ -69,7 +86,18 @@ fun BarStyle(event: EventUi, modifier: Modifier = Modifier) {
                     .fillMaxHeight()
                     .fillMaxWidth(width.value.coerceIn(0.02f, 1f))
                     .clip(RoundedCornerShape(8.dp))
-                    .background(accent)
+                    .drawBehind {
+                        val band = size.width * 0.6f
+                        val x = -band + (size.width + band) * shine
+                        drawRoundRect(
+                            brush = Brush.linearGradient(
+                                colors = listOf(accent, accent.copy(alpha = 0.62f), accent),
+                                start = Offset(x, 0f),
+                                end = Offset(x + band, 0f),
+                            ),
+                            cornerRadius = CornerRadius(8.dp.toPx()),
+                        )
+                    }
             )
         }
         Spacer(Modifier.height(10.dp))
