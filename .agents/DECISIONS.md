@@ -15,3 +15,4 @@
 2026-09-08 | VM events 用 null 表示加载中 | 修复启动时空状态闪现（Room 首次发射前误显"还没有记录"） | ui/EventsViewModel.kt
 2026-09-08 | 输入法适配用 Compose imePadding 而非调 manifest windowSoftInputMode | enableEdgeToEdge 后 API 30+ 窗口不再随 IME 收缩，adjustResize 失效；imePadding 是 edge-to-edge 下的标准解法，且保留全屏视觉 | runs/20260908_2306_imefix_001/
 2026-09-08 | 修复版定 versionCode 3 / versionName 1.1.1 | 用户报告 bug 的语义化补丁号；同签名密钥可覆盖安装 | runs/20260908_2306_imefix_001/gate_B_package.json
+2026-09-08 | git 远端从 https://github.com/... 切换为 ssh://git@ssh.github.com:443/... | github.com:443 持续拒连（api.github.com 正常，疑似本地网络对主站 SNI 干扰）；ssh.github.com:443 认证即通。若 GitHub HTTPS 恢复可切回，SSH 通道可长期使用 | git remote -v
