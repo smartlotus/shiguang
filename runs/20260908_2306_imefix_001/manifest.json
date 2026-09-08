@@ -1,0 +1,43 @@
+{
+  "run_id": "20260908_2306_imefix_001",
+  "stage": "A→B→C 全链（单测→打包 debug+release→清单/组件/签名验收）· v1.1.1 输入法遮挡修复",
+  "created_at": "2026-09-08T23:06:00+08:00",
+  "created_by": "zcode-main",
+  "status": "PASS",
+  "code_version": {
+    "git_commit": "3c4a59b（HEAD at start）+ 未提交修复改动，见 dirty_files.txt",
+    "dirty_files": ["app/src/main/java/com/shiguang/app/ui/EditScreen.kt", "app/build.gradle.kts", ".agents/claims/ime-fix.md"]
+  },
+  "inputs": {
+    "signing": {
+      "run_id": "20260908_0013_release_001（同一自签密钥，证书 SHA-256 5a8a2a03…）",
+      "path": "keystore.properties + keystores/shiguang-release.jks",
+      "sha256": null
+    }
+  },
+  "params": {
+    "_comment": "本次运行的全部关键参数，resume 时用于指纹比对",
+    "versionCode": 3,
+    "versionName": "1.1.1",
+    "bugfix": "编辑页 imePadding：enableEdgeToEdge 下 API 30+ adjustResize 失效，输入法遮底；修复后输入框随键盘垫高并可滚动至可视区",
+    "gradle": "8.11.1",
+    "agp": "8.7.3",
+    "kotlin": "2.0.21",
+    "rerun_tasks": true
+  },
+  "semantic_counters": {
+    "attempts": 1
+  },
+  "env": {
+    "java": "OpenJDK 17.0.20 (Temurin)",
+    "android_build_tools": "35.0.0",
+    "os": "Windows 10.0.26200 x64",
+    "gradle_daemon": false
+  },
+  "gate_report": [
+    "gate_A_logic_test.json",
+    "gate_B_package.json",
+    "gate_C_acceptance.json"
+  ],
+  "verdict": "PASS"
+}

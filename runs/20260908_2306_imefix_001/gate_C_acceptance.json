@@ -1,0 +1,35 @@
+{
+  "gate": "acceptance_gate",
+  "checked_at": "2026-09-08T23:08:10+08:00",
+  "checked_by": "zcode-main",
+  "verdict": "PASS",
+  "verdict_enum": "PASS | FAIL | PASS_WITH_LIMITATIONS",
+  "metrics": {
+    "_comment": "实测指标：apksigner + aapt 对 v1.1.1 release APK 的验收",
+    "apksigner_verify_exit": 0,
+    "signer_cert_sha256": "5a8a2a031876e8b5d5fc75360124684f7c95a9cb6c1265d67962a41179fdd3b1（与 v1.0/v1.1 同钥，可覆盖安装）",
+    "provides_component_app_widget": 1,
+    "application_label": "拾光",
+    "versionCode": 3,
+    "versionName": "1.1.1",
+    "ime_fix_static_check": "EditScreen 根 Column 已含 .imePadding()（源码级核验），manifest windowSoftInputMode=adjustResize 保持"
+  },
+  "thresholds": {
+    "_comment": "预写的验收门槛，事后不许挪",
+    "apksigner_verify_exit": 0,
+    "provides_component_app_widget": 1
+  },
+  "evidence": [
+    "runs/20260908_2306_imefix_001/aapt_badging_release.txt",
+    "runs/20260908_2306_imefix_001/apk_sha256.txt",
+    "app/src/main/java/com/shiguang/app/ui/EditScreen.kt"
+  ],
+  "inputs_verified": {
+    "run_id": "HEAD 3c4a59b + dirty(EditScreen.kt, app/build.gradle.kts)",
+    "manifest_matches": true
+  },
+  "limitations": [
+    "键盘弹出后输入框滚入可视区为运行时交互行为，静态验收无法覆盖，需真机确认（用户报告场景）"
+  ],
+  "notes": "真机验收要点：编辑页点备注输入框 → 弹键盘 → 备注框与保存按钮可见可滚"
+}

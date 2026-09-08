@@ -1,0 +1,30 @@
+{
+  "gate": "logic_test_gate",
+  "checked_at": "2026-09-08T23:07:30+08:00",
+  "checked_by": "zcode-main",
+  "verdict": "PASS",
+  "verdict_enum": "PASS | FAIL | PASS_WITH_LIMITATIONS",
+  "metrics": {
+    "_comment": "实测指标：JUnit 测试套件（--rerun-tasks 强制新鲜执行）",
+    "tests_run": 12,
+    "tests_skipped": 0,
+    "failures": 0,
+    "errors": 0
+  },
+  "thresholds": {
+    "_comment": "预写的验收门槛，事后不许挪",
+    "failures": 0,
+    "errors": 0,
+    "min_tests_run": 12
+  },
+  "evidence": [
+    "runs/20260908_2306_imefix_001/test_results.xml",
+    "runs/20260908_2306_imefix_001/build_output.log"
+  ],
+  "inputs_verified": {
+    "run_id": "HEAD 3c4a59b + dirty(EditScreen.kt, app/build.gradle.kts)",
+    "manifest_matches": true
+  },
+  "limitations": [],
+  "notes": "UI 层修复不触及 DateMath，全量重跑仍全绿"
+}

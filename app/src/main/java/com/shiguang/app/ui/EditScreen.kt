@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -105,6 +106,9 @@ fun EditScreen(
             Modifier
                 .padding(padding)
                 .fillMaxSize()
+                // 输入法弹出时把内容垫在键盘上方：配合 verticalScroll，
+                // 正在输入的输入框会自动滚入可视区（enableEdgeToEdge 下 adjustResize 失效，必须手动处理 ime inset）
+                .imePadding()
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 20.dp)
                 .padding(bottom = 32.dp)

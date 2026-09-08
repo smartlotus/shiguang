@@ -13,3 +13,5 @@
 2026-09-08 | v1.1 动效方案：导航按页面层级左右滑动、列表 animateItem、经典入场缩放、多米诺下一根摇摆、长条流光、样式切换淡入缩放 | 用户要求针对动效/UI/小组件优化；全部使用标准 Compose API，无第三方动画库，预算可控 | runs/20260908_0139_optimize_001/manifest.json
 2026-09-08 | 小组件深链用 singleTop + EXTRA_OPEN_EVENT_ID + Intent data 区分 PendingIntent | 点击组件直达详情是小组件体验最大提升；data uri 保证不同事件 PendingIntent 互不覆盖 | widget/WidgetUpdater.kt openAppPendingIntent
 2026-09-08 | VM events 用 null 表示加载中 | 修复启动时空状态闪现（Room 首次发射前误显"还没有记录"） | ui/EventsViewModel.kt
+2026-09-08 | 输入法适配用 Compose imePadding 而非调 manifest windowSoftInputMode | enableEdgeToEdge 后 API 30+ 窗口不再随 IME 收缩，adjustResize 失效；imePadding 是 edge-to-edge 下的标准解法，且保留全屏视觉 | runs/20260908_2306_imefix_001/
+2026-09-08 | 修复版定 versionCode 3 / versionName 1.1.1 | 用户报告 bug 的语义化补丁号；同签名密钥可覆盖安装 | runs/20260908_2306_imefix_001/gate_B_package.json

@@ -1,0 +1,34 @@
+{
+  "gate": "package_gate",
+  "checked_at": "2026-09-08T23:08:00+08:00",
+  "checked_by": "zcode-main",
+  "verdict": "PASS",
+  "verdict_enum": "PASS | FAIL | PASS_WITH_LIMITATIONS",
+  "metrics": {
+    "_comment": "实测指标：assembleDebug + assembleRelease 全量重跑",
+    "exit_code": 0,
+    "debug_apk_sha256": "952139921689d1162ec16d7c686c26962d8461a4e7ae31ce7178ad357e8e96c3",
+    "release_apk_exists": true,
+    "release_apk_bytes": 6681390,
+    "release_apk_sha256": "349f4b8c3681cdf4be8adb173043867976c634183b97ae7731a027cfa866aff3",
+    "release_signed": true,
+    "versionCode": 3,
+    "versionName": "1.1.1"
+  },
+  "thresholds": {
+    "_comment": "预写的验收门槛，事后不许挪",
+    "exit_code": 0,
+    "release_apk_min_bytes": 1000000,
+    "release_signed": true
+  },
+  "evidence": [
+    "runs/20260908_2306_imefix_001/build_output.log",
+    "runs/20260908_2306_imefix_001/apk_sha256.txt"
+  ],
+  "inputs_verified": {
+    "run_id": "HEAD 3c4a59b + dirty(EditScreen.kt, app/build.gradle.kts)",
+    "manifest_matches": true
+  },
+  "limitations": [],
+  "notes": "一次通过"
+}

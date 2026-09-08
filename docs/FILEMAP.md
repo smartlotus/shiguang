@@ -61,7 +61,7 @@
 | `ui/HomeScreen.kt` | 首页：标题区（拾光 + 今日日期）、**加载中小圆点**、事件列表（LazyColumn + **animateItem 删除/重排动画**）、空状态（**多米诺品牌插画 DominoMark**）、ExtendedFAB「记一个日子」 |
 | `ui/EventCard.kt` | 列表卡片：色点 + 标题 + 混排大数字（还/已 N 天）+ 日期/备注 + 迷你进度条 |
 | `ui/DetailScreen.kt` | 详情页：整页按事件色淡染（animateColorAsState），顶部返回/编辑，中部 `AnimatedContent` 渲染当前样式（**淡入+缩放转场**），底部 SegmentedButton 切换四种样式（写入数据库记忆） |
-| `ui/EditScreen.kt` | 新建/编辑页：标题、Material3 DatePicker 选目标日与进度起点、每年重复开关、8 色色板选择、备注、删除（带确认对话框） |
+| `ui/EditScreen.kt` | 新建/编辑页：标题、Material3 DatePicker 选目标日与进度起点、每年重复开关、8 色色板选择、备注、删除（带确认对话框）；**根 Column `imePadding()` 键盘适配**——输入法弹出时内容垫到键盘上方并随 `verticalScroll` 滚动，正在输入的框始终可见 |
 
 ### 主题 `ui/theme/`
 
